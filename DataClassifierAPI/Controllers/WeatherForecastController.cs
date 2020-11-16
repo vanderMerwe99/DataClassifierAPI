@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace DataClassifierAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("https://vandermerwe99.github.io/DataClassifierAPI/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
