@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DataClassifierAPI.Controllers
 {
-    [Route("https://vandermerwe99.github.io/DataClassifierAPI//[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase
     {
