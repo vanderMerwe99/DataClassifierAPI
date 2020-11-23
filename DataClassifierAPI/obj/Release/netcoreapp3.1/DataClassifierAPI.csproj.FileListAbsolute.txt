@@ -36,3 +36,5 @@ C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI
 C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI\DataClassifierAPI\obj\Release\netcoreapp3.1\DataClassifierAPI.dll
 C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI\DataClassifierAPI\obj\Release\netcoreapp3.1\DataClassifierAPI.pdb
 C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI\DataClassifierAPI\obj\Release\netcoreapp3.1\DataClassifierAPI.genruntimeconfig.cache
+C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI\DataClassifierAPI\bin\Release\netcoreapp3.1\System.Net.Http.Formatting.dll
+C:\Users\ausvd\Desktop\University\CMPG 323\Data Classifier App\DataClassifierAPI\DataClassifierAPI\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll

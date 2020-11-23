@@ -13,8 +13,8 @@ namespace DataClassifierAPI
 
         public MongoManager(string database)
         {
-            var client = new MongoClient("mongodb+srv://project_user:projuserpass@cluster0.z5c5c.mongodb.net/test");
-            db = client.GetDatabase(database);
+            var client = new MongoClient("mongodb+srv://project_user:projuserpass@cluster0.z5c5c.mongodb.net/Data_Classifier?retryWrites=true&w=majority");
+            db = client.GetDatabase("Data_Classifier");
         }
 
         public void InsertRecord<T>(string table, T record)
@@ -29,15 +29,14 @@ namespace DataClassifierAPI
             return collection.Find(new BsonDocument()).ToList();
         }
 
-        public T LoadRecordById<T>(string table, int id)
+        public string LoadRecordById<T>(string table, int id)
         {
             var collection = db.GetCollection<T>(table);
-            var filter = Builders<T>.Filter.Eq("Id", id);
-
-            return collection.Find(filter).First();
+            List<T> rec = collection.Find(new BsonDocument()).ToList();
+            return rec.ElementAt(id).ToString();
         }
         //Similar to a merge function,
-        //If it's there update it ptherwise create it.
+        //If it's there update it otherwise create it.
         public void UpsertRecord<T>(string table, int id, T record)
         {
             var collection = db.GetCollection<T>(table);

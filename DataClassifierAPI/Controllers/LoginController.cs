@@ -25,10 +25,10 @@ namespace DataClassifierAPI.Controllers
             _config = config;
         }
         [HttpGet]
-        public IActionResult Login(string Username, string Password)
+        public IActionResult Login(string Email, string Password)
         {
             UserModel login = new UserModel();
-            login.username = Username;
+            login.email = Email;
             login.Password = Password;
             IActionResult response = Unauthorized();
 
@@ -49,13 +49,13 @@ namespace DataClassifierAPI.Controllers
             //{
             //    user = new UserModel { UserName = "AuthmyAPI", Email = "Test@mail.com", Password = "please" };
             //}
-            MongoManager dbManager = new MongoManager("Addressbook");
+            MongoManager dbManager = new MongoManager("Data_Classifier");
             var recs = dbManager.LoadRecords<UserModel>("Users");
             foreach (var rec in recs)
             {
-                if (login.username == rec.username && login.Password == rec.Password)
+                if (login.email == rec.email && login.Password == rec.Password)
                 {
-                    user = new UserModel { Id=rec.Id, username = rec.username, email = rec.email, Password = rec.Password, DateOfBirth = rec.DateOfBirth };
+                    user = new UserModel { Id=rec.Id, email = rec.email, Password = rec.Password };
                 }
             }
             return user;
@@ -67,7 +67,7 @@ namespace DataClassifierAPI.Controllers
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,userInfo.username),
+                new Claim(JwtRegisteredClaimNames.Sub,userInfo.email),
                 new Claim(JwtRegisteredClaimNames.Email,userInfo.email),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
@@ -82,21 +82,25 @@ namespace DataClassifierAPI.Controllers
             var encodeToken = new JwtSecurityTokenHandler().WriteToken(token);
             return encodeToken;
         }
-        [Authorize]
-        [HttpPost("Post")]
-        public string Post()
+        //[Authorize]
+        [HttpPost("CreateAccount")]
+        public string Post(UserModel user)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            IList<Claim> claim = identity.Claims.ToList();
-            var userName = claim[0].Value;
-            return "Welcome " + userName;
-
+            MongoManager dbManager = new MongoManager("Data_Classifier");
+            dbManager.InsertRecord<UserModel>("Users", user);
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            //IList<Claim> claim = identity.Claims.ToList();
+            //var userName = claim[0].Value;
+            return "Succes!";
         }
-        [Authorize]
-        [HttpGet("GetValue")]
-        public ActionResult<IEnumerable<string>> Get()
+
+        //[Authorize]
+        [HttpGet("GetValues")]
+        public ActionResult<string> Get()
         {
-            return new string[] { "Val1", "Vale2", "Val3" };
+            MongoManager dbManager = new MongoManager("Data_Classifier");
+            List<string> list = dbManager.LoadRecords<string>("Users");
+            return list.Count.ToString();
         }
     }
 }

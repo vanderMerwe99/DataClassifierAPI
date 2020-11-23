@@ -10,10 +10,8 @@ namespace DataClassifierAPI.Models
     {
         [BsonId]
         public int Id { get; set; }
-        public string username { get; set; }
-        public string Password { get; set; }
         public string email { get; set; }
-        [BsonElement("DoB")]
-        public string DateOfBirth { get; set; }
+        public string Password { get; set; }
+
     }
 }
